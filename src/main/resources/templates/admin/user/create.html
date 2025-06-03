@@ -10,6 +10,18 @@
 
     <!-- Custom CSS -->
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(() => {
+            const avatarFile = $("#avatarFile");
+            avatarFile.change(function (e) {
+                const imgURL = URL.createObjectURL(e.target.files[0]);
+                $("#avatarPreview").attr("src", imgURL);
+                $("#avatarPreview").css({ "display": "block" });
+            });
+        });
+    </script>
 
     <!-- JS Libs -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -37,27 +49,52 @@
                         <hr />
                         <!--/*@thymesVar id="newUser" type=""*/-->
                         <form th:action="@{/admin/user/create}" th:object="${newUser}" method="post">
-                            <div class="mb-3">
+                            <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Email:</label>
                                 <input type="email" class="form-control" name="email" />
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Password:</label>
                                 <input type="password" class="form-control" name="password" />
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Phone number:</label>
                                 <input type="text" class="form-control" name="phone" />
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Full name:</label>
                                 <input type="text" class="form-control" name="fullName" />
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 col-12">
                                 <label class="form-label">Address:</label>
                                 <input type="text" class="form-control" name="address" />
                             </div>
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <div class="row mb-3">
+                                <!-- Select Role -->
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label" for="role">Role:</label>
+                                    <select class="form-select" id="role">
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="USER">USER</option>
+                                    </select>
+                                </div>
+
+                                <!-- Upload Avatar -->
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label for="avatarFile" class="form-label">Avatar:</label>
+                                    <input class="form-control" type="file" id="avatarFile" name="avatarFile" accept=".png, .jpg, .jpeg"/>
+                                </div>
+
+                                <!-- Avatar Preview -->
+                                <div class="col-12 mb-3">
+                                    <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview"/>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mb-5">
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
