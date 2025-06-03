@@ -1,4 +1,4 @@
-package com.myweb.weblaptop.controller;
+package com.myweb.weblaptop.controller.admin;
 
 import com.myweb.weblaptop.domain.User;
 import org.springframework.ui.Model;
@@ -79,17 +79,18 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-//    @GetMapping("/admin/user/delete/{id}")
-//    public String showDeletePage(@PathVariable Long id, Model model) {
-//        model.addAttribute("user", model);
-//        model.addAttribute("id", id);
-//        return "admin/user/delete";
-//    }
-//
-//    @PostMapping("/admin/user/update")
-//    public String deleteUser(@PathVariable Long id) {
-//        userService.deleteUserById(id);
-//        return "redirect:/admin/user";
-//    }
+    @GetMapping("/admin/user/delete/{id}")
+    public String showDeletePage(@PathVariable("id") Long id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "admin/user/delete";
+    }
+
+    @PostMapping("/admin/user/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        userService.deleteUserById(id);
+        return "redirect:/admin/user";
+    }
+
 
 }

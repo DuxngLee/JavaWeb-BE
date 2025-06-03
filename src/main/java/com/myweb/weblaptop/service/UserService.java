@@ -2,6 +2,7 @@ package com.myweb.weblaptop.service;
 
 import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +32,9 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User deleteUserById(long id)
-    {
-        return this.userRepository.findById(id);
+    @Transactional
+    public void deleteUserById(long id) {
+        this.userRepository.deleteById(id);
     }
+
 }
