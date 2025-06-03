@@ -2,6 +2,8 @@ package com.myweb.weblaptop.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tables")
 public class Product {
@@ -18,6 +20,7 @@ public class Product {
     private long sold;
     private String factory;
     private String target;
+
 
     @Override
     public String toString() {
