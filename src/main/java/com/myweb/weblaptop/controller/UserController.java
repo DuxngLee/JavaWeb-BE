@@ -1,7 +1,6 @@
 package com.myweb.weblaptop.controller;
 
 import com.myweb.weblaptop.domain.User;
-import com.myweb.weblaptop.repository.UserRepository;
 import org.springframework.ui.Model;
 import com.myweb.weblaptop.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -35,6 +34,37 @@ public class UserController {
         return "admin/user/createTable";
     }
 
+    @RequestMapping("/admin/user/{id}")
+    private String getUserDetailPage(Model model, @PathVariable long id)
+    {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("id", id);
+        return "admin/user/show";
+    }
+
+    @PostMapping("/admin/user/update")
+    public String showUpdateForm(@ModelAttribute("newUser") User user, Model model) {
+        User userUpdate = this.userService.getUserById(user.getId());
+        if (userUpdate != null) {
+            userUpdate.setFullName(user.getFullName());
+            userUpdate.setPhone(user.getPhone());
+            userUpdate.setAddress(user.getAddress());
+
+            this.userService.handleSaveUser(userUpdate);
+        }
+        return "redirect:/admin/user";
+    }
+
+    @RequestMapping("/admin/user/update/{id}") //GET
+    private String getUpdateUserPage(Model model, @PathVariable long id)
+    {
+        User userUpdate = this.userService.getUserById(id);
+        model.addAttribute("user", userUpdate);
+        return "admin/user/update";
+    }
+
+
     @RequestMapping("/admin/user/create") //GET
     private String getCreateUserPage(Model model)
     {
@@ -49,5 +79,17 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
+//    @GetMapping("/admin/user/delete/{id}")
+//    public String showDeletePage(@PathVariable Long id, Model model) {
+//        model.addAttribute("user", model);
+//        model.addAttribute("id", id);
+//        return "admin/user/delete";
+//    }
+//
+//    @PostMapping("/admin/user/update")
+//    public String deleteUser(@PathVariable Long id) {
+//        userService.deleteUserById(id);
+//        return "redirect:/admin/user";
+//    }
 
 }
