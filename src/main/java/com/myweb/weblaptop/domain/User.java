@@ -1,6 +1,7 @@
 package com.myweb.weblaptop.domain;
 
 import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +27,22 @@ public class User {
 
     @OneToMany(mappedBy = "users")
     private List<Order> order;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
 
     public long getId() {
         return id;
