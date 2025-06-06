@@ -48,8 +48,9 @@
                         <h3>Create User</h3>
                         <hr />
                         <!--/*@thymesVar id="newUser" type=""*/-->
-                        <form th:action="@{/admin/user/create}" th:object="${newUser}" method="post">
-                            <div class="mb-3 col-12 col-md-6">
+                        <form th:action="@{/admin/user/create}" th:object="${newUser}" method="post"
+                              enctype="multipart/form-data" class="row">
+                        <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Email:</label>
                                 <input type="email" class="form-control" name="email" />
                             </div>
@@ -73,16 +74,15 @@
                                 <!-- Select Role -->
                                 <div class="col-12 col-md-6 mb-3">
                                     <label class="form-label" for="role">Role:</label>
-                                    <select class="form-select" id="role">
+                                    <select class="form-select" id="role" th:field="*{role.name}">
                                         <option value="ADMIN">ADMIN</option>
                                         <option value="USER">USER</option>
                                     </select>
                                 </div>
 
-                                <!-- Upload Avatar -->
-                                <div class="col-12 col-md-6 mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label for="avatarFile" class="form-label">Avatar:</label>
-                                    <input class="form-control" type="file" id="avatarFile" name="avatarFile" accept=".png, .jpg, .jpeg"/>
+                                    <input type="file" class="form-control" id="avatarFile" name="avatarFile" accept=".png,.jpg,.jpeg" />
                                 </div>
 
                                 <!-- Avatar Preview -->
