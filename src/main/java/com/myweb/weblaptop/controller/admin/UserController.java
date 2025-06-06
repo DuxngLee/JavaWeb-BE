@@ -2,39 +2,38 @@ package com.myweb.weblaptop.controller.admin;
 
 import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.service.UploadService;
-import jakarta.servlet.ServletContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import com.myweb.weblaptop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class UserController {
     private final UserService userService;
     private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
     public UserController(UserService userService,
-                          UploadService uploadService) {
+                          UploadService uploadService,
+                          PasswordEncoder passwordEncoder) {
 
         this.userService = userService;
         this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    private String getHomePage(Model model) {
-        List<User> users = userService.getAllUserByEmail("1@gmail.com");
-        System.out.println(users);
-        model.addAttribute("testModel", "test");
-        model.addAttribute("testAttribute", "from Controller with model");
-        return "home";
-    }
+//    @RequestMapping("/")
+//    private String getHomePage(Model model) {
+//        List<User> users = userService.getAllUserByEmail("1@gmail.com");
+//        System.out.println(users);
+//        model.addAttribute("testModel", "test");
+//        model.addAttribute("testAttribute", "from Controller with model");
+//        return "home";
+//    }
 
     @RequestMapping("/admin/user")
     private String getUserPage(Model model) {
@@ -84,7 +83,13 @@ public class UserController {
                                   @RequestParam("avatarFile") MultipartFile file) {
 
         String avatar = this.uploadService.handleUploadFile(file, "avatar");
-        //userService.handleSaveUser(user);
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+
+        user.setAvatar(avatar);
+        user.setPassword(hashPassword);
+        user.setRole(this.userService.getRoleByName(user.getRole().getName()));
+
+        userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
 

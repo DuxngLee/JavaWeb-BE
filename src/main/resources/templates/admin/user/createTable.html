@@ -44,6 +44,7 @@
                                 <th>ID</th>
                                 <th>Email</th>
                                 <th>Full name</th>
+                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                 <td th:text="${user.id}">1</td>
                                 <td th:text="${user.email}">email@example.com</td>
                                 <td th:text="${user.fullName}">Full Name</td>
+                                <td th:text="${user.role.name}">Role</td>
                                 <td>
                                     <a th:href="@{/admin/user/{id}(id=${user.id})}" class="btn btn-success">View</a>
                                     <a th:href="@{/admin/user/update/{update}(update=${user.id})}" class="btn btn-success">Update</a>
