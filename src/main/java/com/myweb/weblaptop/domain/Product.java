@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "tables")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,10 @@ public class Product {
     private String image;
 
     @NotNull
-    @NotEmpty(message = "Mô tả chi tiết không được để trống")
+    @NotEmpty(message = "detailDesc không được để trống")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
+
 
     @NotNull
     @NotEmpty(message = "Mô tả ngắn không được để trống")
