@@ -1,7 +1,7 @@
 package com.myweb.weblaptop.domain;
 
 import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
@@ -12,10 +12,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @Email(message = "Email ko hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @NotNull
+    @Size(min = 3, message = "Mật khẩu phải có ít nhất 3 ký tự")
     private String password;
-    private String address;
+
+    @NotNull
+    @Size(min = 3, message = "Tên đầy đủ phải có ít nhất 3 ký tự")
     private String fullName;
+
+    private String address;
     private String phone;
 
     private String avatar;

@@ -19,6 +19,10 @@ public class UploadService {
     }
 
     public String handleUploadFile(MultipartFile file, String targetFolder) {
+        if(file.isEmpty()) {
+            return "";
+        }
+
         String uploadRootPath = System.getProperty("user.dir") + "/src/main/resources/static/Images";
         String finalName = "";
 
