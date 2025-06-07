@@ -47,28 +47,63 @@
                     <div class="col-md-6 col-12 mx-auto">
                         <h3>Create a Product</h3>
                         <hr/>
-                        <!--/*@thymesVar id="newUser" type=""*/-->
-                        <form th:action="@{/admin/user/create}" th:object="${newProduct}" method="post"
+                        <!--/*@thymesVar id="newProduct" type=""*/-->
+                        <form th:action="@{/admin/product/createProduct}" th:object="${newProduct}" method="post"
                               enctype="multipart/form-data" class="row">
                             <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Name:</label>
-                                <input type="text" class="form-control" name="name"/>
+                                <input type="text"
+                                       th:field="*{name}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('name')} ? ' is-invalid' : ''"/>
+                                <div th:if="${#fields.hasErrors('name')}"
+                                     th:errors="*{name}"
+                                     class="invalid-feedback">
+                                </div>
                             </div>
                             <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Price:</label>
-                                <input type="number" class="form-control" name="price"/>
+                                <input type="number"
+                                       th:field="*{price}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('price')} ? ' is-invalid' : ''"/>
+                                <div th:if="${#fields.hasErrors('price')}"
+                                     th:errors="*{price}"
+                                     class="invalid-feedback">
+                                </div>
                             </div>
                             <div class="mb-3 col-12 col-md-6">
-                                <label class="form-label">Detail description:</label>
-                                <input type="text" class="form-control" name="detailDesc"/>
+                                <label class="form-label">Detail Description:</label>
+                                <input type="text"
+                                       th:field="*{detailDesc}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('detailDesc')} ? ' is-invalid' : ''"/>
+                                <div th:if="${#fields.hasErrors('detailDesc')}"
+                                     th:errors="*{detailDesc}"
+                                     class="invalid-feedback">
+                                </div>
                             </div>
                             <div class="mb-3 col-12 col-md-6">
-                                <label class="form-label">Short description:</label>
-                                <input type="text" class="form-control" name="shortDesc"/>
+                                <label class="form-label">Short Description:</label>
+                                <input type="text"
+                                       th:field="*{shortDesc}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('shortDesc')} ? ' is-invalid' : ''"/>
+                                <div th:if="${#fields.hasErrors('shortDesc')}"
+                                     th:errors="*{shortDesc}"
+                                     class="invalid-feedback">
+                                </div>
                             </div>
-                            <div class="mb-3 col-12">
+                            <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Quantity:</label>
-                                <input type="number" class="form-control" name="quantity"/>
+                                <input type="number"
+                                       th:field="*{quantity}"
+                                       class="form-control"
+                                       th:classappend="${#fields.hasErrors('quantity')} ? ' is-invalid' : ''"/>
+                                <div th:if="${#fields.hasErrors('quantity')}"
+                                     th:errors="*{quantity}"
+                                     class="invalid-feedback">
+                                </div>
                             </div>
                             <div class="mb-3 col-12 col-md-6">
                                 <label class="form-label">Factory:</label>
@@ -94,20 +129,21 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="avatarFile" class="form-label">Image:</label>
-                                <input type="file" class="form-control" id="avatarFile" name="avatarFile"
+                                <input type="file" class="form-control" id="avatarFile"
+                                       name="productFile"
                                        accept=".png,.jpg,.jpeg"/>
                             </div>
 
                             <!-- Avatar Preview -->
                             <div class="col-12 mb-3">
-                                <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview"/>
+                                <img style="max-height: 250px; display: none;" alt="avatar preview"
+                                     id="avatarPreview"/>
                             </div>
 
                             <!-- Submit Button -->
                             <div class="col-12 mb-5">
                                 <button type="submit" class="btn btn-primary">Create</button>
                             </div>
-                    </div>
                     </form>
                 </div>
             </div>

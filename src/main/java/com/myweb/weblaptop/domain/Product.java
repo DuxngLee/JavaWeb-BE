@@ -1,6 +1,10 @@
 package com.myweb.weblaptop.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -11,12 +15,28 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
+    @NotEmpty(message = "Tên sản phẩm không được để trống")
     private String name;
+
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false, message = "Giá sản phẩm phải lớn hơn hoặc bằng 0")
     private double price;
+
     private String image;
+
+    @NotNull
+    @NotEmpty(message = "Mô tả chi tiết không được để trống")
     private String detailDesc;
+
+    @NotNull
+    @NotEmpty(message = "Mô tả ngắn không được để trống")
     private String shortDesc;
+
+    @NotNull
+    @DecimalMin(value ="0", inclusive = false, message = "Số lượng sản phẩm phải lớn hơn 0")
     private long quantity;
+
     private long sold;
     private String factory;
     private String target;
