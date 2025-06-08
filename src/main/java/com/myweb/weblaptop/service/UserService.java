@@ -2,6 +2,7 @@ package com.myweb.weblaptop.service;
 
 import com.myweb.weblaptop.domain.Role;
 import com.myweb.weblaptop.domain.User;
+import com.myweb.weblaptop.domain.dto.RegisterDTO;
 import com.myweb.weblaptop.repository.RoleRepository;
 import com.myweb.weblaptop.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -41,6 +42,15 @@ public class UserService {
     public Role getRoleByName(String name)
     {
         return this.roleRepository.findByName(name);
+    }
+
+    public User registerDTOtoUser(RegisterDTO registerDTO) {
+        User user = new User();
+        user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+
+        return user;
     }
 
     @Transactional
