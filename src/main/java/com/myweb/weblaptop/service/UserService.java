@@ -53,6 +53,10 @@ public class UserService {
         return user;
     }
 
+    public boolean checkEmailExists(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
+
     @Transactional
     public void deleteUserById(long id) {
         this.userRepository.deleteById(id);
