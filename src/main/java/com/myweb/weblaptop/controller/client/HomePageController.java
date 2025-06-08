@@ -5,6 +5,7 @@ import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.domain.dto.RegisterDTO;
 import com.myweb.weblaptop.service.ProductService;
 import com.myweb.weblaptop.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -68,4 +70,11 @@ public class HomePageController {
     {
         return "client/auth/login";
     }
+
+    @GetMapping("/access-deny")
+    public String getDenyPage(Model model) {
+
+        return "client/auth/deny";
+    }
+
 }
