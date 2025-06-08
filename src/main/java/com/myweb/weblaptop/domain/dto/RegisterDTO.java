@@ -1,5 +1,8 @@
 package com.myweb.weblaptop.domain.dto;
 
+import com.myweb.weblaptop.service.Validator.RegisterChecked;
+
+@RegisterChecked
 public class RegisterDTO {
     private String firstName;
     private String lastName;

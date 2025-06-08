@@ -1,5 +1,6 @@
 package com.myweb.weblaptop.domain;
 
+import com.myweb.weblaptop.service.Validator.StrongPassword;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
