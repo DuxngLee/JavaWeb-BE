@@ -16,14 +16,17 @@
                         <a href="/products" class="nav-item nav-link">Sản Phẩm</a>
                     </div>
                     <!-- Nếu đã đăng nhập -->
-                    <div sec:authorize="isAuthenticated()">
-                        <div class="position-relative me-4 my-auto" style="display: inline-block;">
+                    <div sec:authorize="isAuthenticated()" class="d-flex align-items-center">
+                        <a th:href="@{/cart}" class="position-relative me-4 my-auto">
                             <i class="fa fa-shopping-bag fa-2x text-success"></i>
-                            <span class="position-absolute bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center"
-                                  style="top: -8px; right: -10px; width: 20px; height: 20px; font-size: 0.8rem;">3</span>
-                        </div>
+                            <span
+                                    th:text="${session.sum}"
+                                    class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">
+                            </span>
+                        </a>
                         <!-- Icon người dùng -->
-                        <div class="dropdown my-auto" style="display: inline-block;">
+                        <div class="dropdown my-auto">
                             <a href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user fa-2x text-success"></i>
                             </a>
