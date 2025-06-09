@@ -27,9 +27,11 @@
                   <div class="row mb-3">
                     <div class="col-md-6">
                       <div class="form-floating mb-3 mb-md-0">
-                        <input th:field="*{firstName}" class="form-control" id="inputFirstName"
+                        <input th:field="*{firstName}" class="form-control" id="firstName"
                                type="text" placeholder="Enter your first name" />
-                        <label for="inputFirstName">First name</label>
+                        <label for="firstName">First name</label>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}"
+                             th:errors="*{firstName}"></div>
                       </div>
                     </div>
                     <div class="col-md-6">
