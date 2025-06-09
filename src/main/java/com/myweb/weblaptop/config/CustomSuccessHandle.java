@@ -1,5 +1,6 @@
 package com.myweb.weblaptop.config;
 
+import com.myweb.weblaptop.domain.Cart;
 import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.service.UserService;
 import jakarta.servlet.ServletException;
@@ -59,6 +60,8 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
             session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("id", user.getId());
+            int sum = user.getCart() == null ? 0 : user.getCart().getSum();
+            session.setAttribute("sum", sum);
         }
 
     }
