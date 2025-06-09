@@ -5,6 +5,8 @@ import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.domain.dto.RegisterDTO;
 import com.myweb.weblaptop.service.ProductService;
 import com.myweb.weblaptop.service.UserService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,6 +39,7 @@ public class HomePageController {
     public String getHomePage(Model model) {
         List<Product> products = productService.fetchProducts();
         model.addAttribute("products", products);
+
         return "client/homepage/show";
     }
 

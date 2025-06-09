@@ -38,6 +38,17 @@ public class User {
     @OneToMany(mappedBy = "users")
     private List<Order> order;
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
     public Role getRole() {
         return role;
     }
@@ -116,10 +127,13 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", role=" + role +
+                ", order=" + order +
+                ", cart=" + cart +
                 '}';
     }
 }
