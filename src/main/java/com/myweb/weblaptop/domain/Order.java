@@ -17,7 +17,7 @@ public class Order {
     private User users;
 
     @OneToMany(mappedBy = "order")
-    List<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     private String receiverName;
     private String receiverAddress;

@@ -3,6 +3,8 @@ package com.myweb.weblaptop.service;
 import com.myweb.weblaptop.domain.Role;
 import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.domain.dto.RegisterDTO;
+import com.myweb.weblaptop.repository.OrderRepository;
+import com.myweb.weblaptop.repository.ProductRepository;
 import com.myweb.weblaptop.repository.RoleRepository;
 import com.myweb.weblaptop.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -14,11 +16,17 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
     public UserService(UserRepository userRepository,
-                       RoleRepository roleRepository) {
+                       RoleRepository roleRepository,
+                       ProductRepository productRepository,
+                       OrderRepository orderRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
     }
     public List<User> getAllUser()
     {
@@ -59,6 +67,16 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
+    }
+
+    public long countUsers() {
+        return this.userRepository.count();
+    }
+    public long countProducts() {
+        return this.productRepository.count();
+    }
+    public long countOrders() {
+        return this.orderRepository.count();
     }
 
     @Transactional
