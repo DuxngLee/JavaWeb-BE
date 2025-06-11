@@ -1,8 +1,10 @@
 package com.myweb.weblaptop.controller.client;
 
+import com.myweb.weblaptop.domain.Order;
 import com.myweb.weblaptop.domain.Product;
 import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.domain.dto.RegisterDTO;
+import com.myweb.weblaptop.service.OrderService;
 import com.myweb.weblaptop.service.ProductService;
 import com.myweb.weblaptop.service.UserService;
 import jakarta.servlet.http.HttpServlet;
@@ -26,13 +28,16 @@ public class HomePageController {
     private final ProductService productService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final OrderService orderService;
 
     public HomePageController(ProductService productService,
                               UserService userService,
-                              PasswordEncoder passwordEncoder) {
+                              PasswordEncoder passwordEncoder,
+                              OrderService orderService) {
         this.productService = productService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.orderService = orderService;
     }
     
     @GetMapping("/")
@@ -78,6 +83,19 @@ public class HomePageController {
     public String getDenyPage(Model model) {
 
         return "client/auth/deny";
+    }
+
+    @GetMapping("/order-history")
+    public String getOrderHistoryPage(Model model, HttpServletRequest request) {
+        User currentUser = new User();// null
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        List<Order> orders = this.orderService.fetchOrderByUser(currentUser);
+        model.addAttribute("orders", orders);
+
+        return "client/cart/order-history";
     }
 
 }

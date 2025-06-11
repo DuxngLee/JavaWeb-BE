@@ -2,6 +2,7 @@ package com.myweb.weblaptop.service;
 
 import com.myweb.weblaptop.domain.Order;
 import com.myweb.weblaptop.domain.OrderDetail;
+import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.repository.OrderDetailRepository;
 import com.myweb.weblaptop.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,9 @@ public class OrderService {
             currentOrder.setStatus(order.getStatus());
             this.orderRepository.save(currentOrder);
         }
+    }
+
+    public List<Order> fetchOrderByUser(User user){
+        return this.orderRepository.findByUsers(user);
     }
 }
