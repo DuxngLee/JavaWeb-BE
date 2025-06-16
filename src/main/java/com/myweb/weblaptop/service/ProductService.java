@@ -146,31 +146,24 @@ public class ProductService {
             User user, HttpSession session,
             String receiverName, String receiverAddress, String receiverPhone) {
 
+        Order order = new Order();
+        order.setUsers(user);
+        order.setReceiverName(receiverName);
+        order.setReceiverAddress(receiverAddress);
+        order.setReceiverPhone(receiverPhone);
+        order.setStatus("PENDING");
+
+        order = this.orderRepository.save(order);
         // step 1: get cart by user
         Cart cart = this.cartRepository.findByUser(user);
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();
 
             if (cartDetails != null) {
-
-                // create order
-                Order order = new Order();
-                order.setUsers(user);
-                order.setReceiverName(receiverName);
-                order.setReceiverAddress(receiverAddress);
-                order.setReceiverPhone(receiverPhone);
-                order.setStatus("PENDING");
-
-                double sum = 0;
-                for (CartDetail cd : cartDetails) {
-                    sum += cd.getPrice();
-                }
-                order.setTotalPrice(sum);
-                order = this.orderRepository.save(order);
-
+                cart = this.cartRepository.save(cart);
                 // create orderDetail
-
                 for (CartDetail cd : cartDetails) {
+                    cd = this.cartDetailRepository.save(cd);
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());
@@ -180,12 +173,8 @@ public class ProductService {
                     this.orderDetailRepository.save(orderDetail);
                 }
 
-                // step 2: delete cart_detail and cart
-                for (CartDetail cd : cartDetails) {
-                    this.cartDetailRepository.deleteById(cd.getId());
-                }
-
-                this.cartRepository.deleteById(cart.getId());
+                // step 2: delete cart_detail
+                this.cartDetailRepository.deleteAll(cartDetails);
 
                 // step 3 : update session
                 session.setAttribute("sum", 0);

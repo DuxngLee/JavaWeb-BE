@@ -37,6 +37,8 @@ public class User {
 
     @OneToMany(mappedBy = "users")
     private List<Order> order;
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
 
     public Cart getCart() {
         return cart;
@@ -45,9 +47,6 @@ public class User {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
-
-    @OneToOne(mappedBy = "user")
-    private Cart cart;
 
     public Role getRole() {
         return role;
