@@ -64,6 +64,35 @@
 
                                 </tbody>
                             </table>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <!-- Nút Previous -->
+                                    <li class="page-item">
+                                        <a th:class="${currentPage == 1} ? 'disabled page-link' : 'page-link'"
+                                           th:href="@{/admin/order(page=${currentPage - 1})}"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Các trang -->
+                                    <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item">
+                                        <a th:class="${i == currentPage} ? 'active page-link' : 'page-link'"
+                                           th:href="@{/admin/order(page=${i})}"
+                                           th:text="${i}">1</a>
+                                    </li>
+
+                                    <!-- Nút Next -->
+                                    <li class="page-item">
+                                        <a th:class="${currentPage == totalPages} ? 'disabled page-link' : 'page-link'"
+                                           th:href="@{/admin/order(page=${currentPage + 1})}"
+                                           aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
                         </div>
                     </div>
                 </div>
