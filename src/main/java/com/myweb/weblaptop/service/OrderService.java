@@ -5,6 +5,8 @@ import com.myweb.weblaptop.domain.OrderDetail;
 import com.myweb.weblaptop.domain.User;
 import com.myweb.weblaptop.repository.OrderDetailRepository;
 import com.myweb.weblaptop.repository.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,10 @@ public class OrderService {
 
     public Optional<Order> fetchOrderById(long id) {
         return this.orderRepository.findById(id);
+    }
+
+    public Page<Order> fetchAllOrders(Pageable page) {
+        return this.orderRepository.findAll(page);
     }
 
     public void deleteOrderById(long id) {

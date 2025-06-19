@@ -3,6 +3,8 @@ package com.myweb.weblaptop.service;
 import com.myweb.weblaptop.domain.*;
 import com.myweb.weblaptop.repository.*;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,8 +39,8 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
-    public List<Product> fetchProducts() {
-        return this.productRepository.findAll();
+    public Page<Product> fetchProducts(Pageable page) {
+        return this.productRepository.findAll(page);
     }
 
     public Optional<Product> fetchProductById(long id) {

@@ -8,6 +8,8 @@ import com.myweb.weblaptop.repository.ProductRepository;
 import com.myweb.weblaptop.repository.RoleRepository;
 import com.myweb.weblaptop.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,6 +79,10 @@ public class UserService {
     }
     public long countOrders() {
         return this.orderRepository.count();
+    }
+
+    public Page<User> getAllUsers(Pageable page) {
+        return this.userRepository.findAll(page);
     }
 
     @Transactional
