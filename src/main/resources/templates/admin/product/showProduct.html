@@ -64,10 +64,10 @@
                         </table>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
-                                <!-- Nút Previous -->
+                                <!-- pagination items -->
                                 <li class="page-item">
                                     <a th:class="${currentPage == 1} ? 'disabled page-link' : 'page-link'"
-                                       th:href="@{/admin/product(page=${currentPage - 1})}"
+                                       th:href="@{/products(page=${currentPage - 1})}"
                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
@@ -76,20 +76,22 @@
                                 <!-- Các trang -->
                                 <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item">
                                     <a th:class="${i == currentPage} ? 'active page-link' : 'page-link'"
-                                       th:href="@{/admin/product(page=${i})}"
+                                       th:href="@{/products(page=${i})}"
                                        th:text="${i}">1</a>
                                 </li>
 
                                 <!-- Nút Next -->
                                 <li class="page-item">
                                     <a th:class="${currentPage == totalPages} ? 'disabled page-link' : 'page-link'"
-                                       th:href="@{/admin/product(page=${currentPage + 1})}"
+                                       th:href="@{/products(page=${currentPage + 1})}"
                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
-                        </nav>
+                        </nav><ul class="pagination justify-content-center">
+                            <!-- pagination items -->
+                        </ul>
                     </div>
                 </div>
             </div>
